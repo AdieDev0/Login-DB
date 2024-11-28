@@ -14,7 +14,9 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/react-login", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect("mongodb://localhost:27017/login", {
+
+  })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
@@ -50,4 +52,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);
