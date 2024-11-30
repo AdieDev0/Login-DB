@@ -14,21 +14,21 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/login", {
-
-  })
+  .connect(
+    "mongodb+srv://login:username@adie.fy9ntbq.mongodb.net/testing?retryWrites=true&w=majority&appName=adie",
+    {}
+  )
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
 // Register
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const user = new User({ username, password: hashedPassword });
+    const user = new User({ username, password: password });
     await user.save();
-    res.status(201).json({ message: "User registered" });
+    res.status(201).json({ message: "Login Failed" });
   } catch (error) {
     res.status(400).json({ error: "User already exists" });
   }
@@ -37,6 +37,9 @@ app.post("/register", async (req, res) => {
 // Login
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
+
+  console.log(username)
+  console.log(password)
 
   try {
     const user = await User.findOne({ username });
